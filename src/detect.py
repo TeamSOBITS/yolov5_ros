@@ -9,11 +9,12 @@ from cv_bridge import CvBridge
 from pathlib import Path
 import os
 import sys
+import sensor_msgs
 from rostopic import get_topic_type
 
 from sensor_msgs.msg import Image, CompressedImage
-from detection_msgs.msg import BoundingBox, BoundingBoxes
-
+# from detection_msgs.msg import BoundingBox, BoundingBoxes
+from sobit_common_msg.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
 
 # add yolov5 submodule to path
 FILE = Path(__file__).resolve()
@@ -58,10 +59,16 @@ class Yolov5Detector:
             self.model.onnx,
             self.model.engine,
         )
+#publisherの定義
+        self.pub_result_img = rospy.Publisher("detect_result", sensor_msgs.msg.Image, queue_size=10)
+        self.pub_detect_list = rospy.Publisher("detect_list", StringArray, queue_size=10)
+        self.pub_detect_poses = rospy.Publisher("detect_poses", ObjectPoseArray, queue_size=10)
 
         # Setting inference size
         self.img_size = [rospy.get_param("~inference_size_w", 640), rospy.get_param("~inference_size_h",480)]
         self.img_size = check_img_size(self.img_size, s=self.stride)
+        self.height = self.img_size[0]
+        self.width = self.img_size[1]
 
         # Half
         self.half = rospy.get_param("~half", False)
@@ -86,7 +93,6 @@ class Yolov5Detector:
             self.image_sub = rospy.Subscriber(
                 input_image_topic, Image, self.callback, queue_size=1
             )
-
         # Initialize prediction publisher
         self.pred_pub = rospy.Publisher(
             rospy.get_param("~output_topic"), BoundingBoxes, queue_size=10
@@ -97,7 +103,6 @@ class Yolov5Detector:
             self.image_pub = rospy.Publisher(
                 rospy.get_param("~output_image_topic"), Image, queue_size=10
             )
-        
         # Initialize CV_Bridge
         self.bridge = CvBridge()
 
@@ -110,10 +115,6 @@ class Yolov5Detector:
             im = self.bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
         
         im, im0 = self.preprocess(im)
-        # print(im.shape)
-        # print(img0.shape)
-        # print(img.shape)
-
         # Run inference
         im = torch.from_numpy(im).to(self.device) 
         im = im.half() if self.half else im.float()
@@ -133,7 +134,7 @@ class Yolov5Detector:
 
         bounding_boxes = BoundingBoxes()
         bounding_boxes.header = data.header
-        bounding_boxes.image_header = data.header
+        # bounding_boxes.image_header = data.header
         
         annotator = Annotator(im0, line_width=self.line_thickness, example=str(self.names))
         if len(det):
@@ -143,7 +144,10 @@ class Yolov5Detector:
             # Write results
             for *xyxy, conf, cls in reversed(det):
                 bounding_box = BoundingBox()
+                detect_list = StringArray()
+                detect_poses = ObjectPoseArray()                
                 c = int(cls)
+                dist_list = []
                 # Fill in bounding box message
                 bounding_box.Class = self.names[c]
                 bounding_box.probability = conf 
@@ -153,29 +157,41 @@ class Yolov5Detector:
                 bounding_box.ymax = int(xyxy[3])
 
                 bounding_boxes.bounding_boxes.append(bounding_box)
-
                 # Annotate the image
                 if self.publish_image or self.view_image:  # Add bbox to image
                       # integer class
                     label = f"{self.names[c]} {conf:.2f}"
                     annotator.box_label(xyxy, label, color=colors(c, True))       
-
+                detect_list.data.append(label)
                 
+                obj_pose = ObjectPose()
+                obj_pose.Class = label
+                obj_pose.pose.position.x = int(xyxy[0] + (xyxy[2] - xyxy[0]) / 2)
+                obj_pose.pose.position.y = int(xyxy[1] + (xyxy[3] - xyxy[1]) / 2)
+                obj_pose.pose.position.z = -1
+                detect_poses.object_poses.append(obj_pose)
+                p = np.array((obj_pose.pose.position.y, obj_pose.pose.position.x))
+                center = np.array((self.height/2,self.width/2))
+                dist = np.linalg.norm(p-center)
+                dist_list.append(dist)
                 ### POPULATE THE DETECTION MESSAGE HERE
-
+            detect_poses.header = data.header
             # Stream results
             im0 = annotator.result()
-
         # Publish prediction
         self.pred_pub.publish(bounding_boxes)
-
+        try:
+            self.pub_detect_poses.publish(detect_poses)
+            self.pub_detect_list.publish(detect_list)
+        except UnboundLocalError:
+            pass
         # Publish & visualize images
         if self.view_image:
             cv2.imshow(str(0), im0)
             cv2.waitKey(1)  # 1 millisecond
         if self.publish_image:
             self.image_pub.publish(self.bridge.cv2_to_imgmsg(im0, "bgr8"))
-        
+
 
     def preprocess(self, img):
         """
@@ -189,11 +205,10 @@ class Yolov5Detector:
 
         return img, img0 
 
-
 if __name__ == "__main__":
 
     check_requirements(exclude=("tensorboard", "thop"))
-    
+
     rospy.init_node("yolov5", anonymous=True)
     detector = Yolov5Detector()
     
