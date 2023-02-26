@@ -33,6 +33,7 @@ git clone https://github.com/ultralytics/yolov5.git
 cd yolov5_ros
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
+python3 -m pip uninstall utils
 python3 -m pip install utils
 ```
 ## 使用するmessage(sobit_common内にあります。)
@@ -44,13 +45,20 @@ BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, Com
 YOLOv5 
  
 ```bash
-roslaunch yolov5_ros yolov5.launch
+# azure_kinect
+roslaunch yolov5_ros azure_yolov5.launch
+# realsense
+roslaunch yolov5_ros realsense2_yolov5.launch
 ```
  
 YOLOv5 + PCL
  
 ```bash
-roslaunch yolov5_ros yolov5_with_tf.launch
+# azure_kinect
+roslaunch yolov5_ros azure_yolov5_with_tf.launch
+# realsense
+roslaunch yolov5_ros realsense2_yolov5_with_tf.launch
+
 ```
 
 # Note
