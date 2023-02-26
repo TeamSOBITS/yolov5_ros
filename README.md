@@ -41,7 +41,7 @@ BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, Com
 
 
 ```bash
-/Detsction(別途インストール)
+# Detsction(別途インストール)
 cd catkin_ws/src
 git clone https://github.com/mats-robotics/detection_msgs.git
 ```
