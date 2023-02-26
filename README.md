@@ -52,3 +52,38 @@ YOLOv5 + PCL
 ```bash
 roslaunch yolov5_ros yolov5_with_tf.launch
 ```
+
+# Note
+
+## Node Parameters
+* **'weights`**
+    weightファイルのファイルパス
+
+* **'confidence_threshold`**
+    認識のスコアのしきい値
+
+* **'iou_threshold`**
+    iouのしきい値
+
+* **'inference_size_h`**
+    入力画像の幅
+
+* **'inference_size_w`**
+    入力画像の横
+
+* **'input_image_topic`**(/rgb/image_raw)
+    入力画像のtopic
+* **'output_topic`**(objects_rect)
+    yolov5の推論結果
+* **'`**
+## Subscribe Topics
+* **'/camera/rgb/image_raw`** (sensor_msgs/Image)
+
+    YOLOv5の入力画像
+
+* **'/camera/depth/points`** (sensor_msgs/PointCloud2)
+    ポイントクラウドの入力
+
+## Publish Topics
+* **'output_image_topic`**(/yolov5/image_out)
+    yolov5の推論結果を画像
