@@ -1,6 +1,6 @@
 <launch>
     <!-- Detection configuration -->
-    <arg name="weights" default="best.pt"/>
+    <arg name="weights" default="/home/sobits/catkin_ws/src/yolov5_ros/src/yolov5/weights/azure_weight/best.pt"/>
     <arg name="data" default="$(find yolov5_ros)/src/yolov5/data/coco128.yaml"/>
     <arg name="confidence_threshold" default="0.75"/>
     <arg name="iou_threshold" default="0.45"/>
@@ -12,22 +12,22 @@
     <arg name="half" default="false"/>
 
     <!-- replace imgsz -->
-    <arg name="inference_size_h" default="640"/>
-    <arg name="inference_size_w" default="640"/>
+    <arg name="inference_size_h" default="1280"/>
+    <arg name="inference_size_w" default="720"/>
 
     <!-- Visualize using OpenCV window -->
-    <arg name="view_image" default="true"/>
+    <arg name="view_image" default="false"/>
 
     <!-- ROS topics -->
-    <arg name="input_image_topic" default="/main_camera/image_raw/compressed"/>
-    <arg name="output_topic" default="/yolov5/detections"/>
+    <arg name="input_image_topic" default="/rgb/image_raw"/>
+    <arg name="output_topic" default="objects_rect"/>
 
     <!-- Optional topic (publishing annotated image) -->
-    <arg name="publish_image" default="false"/>
+    <arg name="publish_image" default="true"/>
     <arg name="output_image_topic" default="/yolov5/image_out"/>
 
 
-    <node pkg="yolov5_ros" name="detect" type="detect.py" output="screen">
+    <node pkg="yolov5_ros" name="detect" type="yolo_detect.py" output="screen">
         <param name="weights" value="$(arg weights)"/>
         <param name="data" value="$(arg data)"/>
         <param name="confidence_threshold" value="$(arg confidence_threshold)"/>
@@ -51,6 +51,4 @@
         <param name="output_image_topic" value="$(arg output_image_topic)"/>
     </node>
     <!-- <include file="$(find camera_launch)/launch/d435.launch"/> -->
-
-
 </launch>
