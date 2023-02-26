@@ -37,9 +37,14 @@ python3 -m pip uninstall utils
 python3 -m pip install utils
 ```
 ## 使用するmessage(sobit_common内にあります。)
-BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, CompressedImage
+BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, CompressedImage,
 
- 
+
+```bash
+/Detsction(別途インストール)
+cd catkin_ws/src
+git clone https://github.com/mats-robotics/detection_msgs.git
+```
 # Usage
  
 YOLOv5 
