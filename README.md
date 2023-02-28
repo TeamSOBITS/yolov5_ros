@@ -30,7 +30,7 @@ git clone https://github.com/ultralytics/yolov5.git
 
 必要なpython moduleのインストール
 ```bash
-cd yolov5_ros
+cd yolov5_ros/src/yolov5
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 python3 -m pip uninstall utils
