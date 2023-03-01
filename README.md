@@ -34,7 +34,6 @@ cd yolov5_ros/src/yolov5
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 python3 -m pip uninstall utils
-python3 -m pip install utils
 ```
 ## 使用するmessage(sobit_common内にあります。)
 BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, CompressedImage,
