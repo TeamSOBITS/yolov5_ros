@@ -13,7 +13,6 @@ import sensor_msgs
 from rostopic import get_topic_type
 
 from sensor_msgs.msg import Image, CompressedImage
-# from detection_msgs.msg import BoundingBox, BoundingBoxes
 from sobit_common_msg.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
 
 # add yolov5 submodule to path
