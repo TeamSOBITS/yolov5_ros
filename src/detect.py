@@ -29,7 +29,7 @@ from utils.general import (
     check_img_size,
     check_requirements,
     non_max_suppression,
-    scale_coords
+    scale_boxes
 )
 from utils.plots import Annotator, colors
 from utils.torch_utils import select_device
@@ -139,7 +139,7 @@ class Yolov5Detector:
         annotator = Annotator(im0, line_width=self.line_thickness, example=str(self.names))
         if len(det):
             # Rescale boxes from img_size to im0 size
-            det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
+            det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
 
             # Write results
             for *xyxy, conf, cls in reversed(det):
