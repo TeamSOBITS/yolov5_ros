@@ -16,7 +16,7 @@ cd catkin_ws/src/
 git clone https://github.com/TeamSOBITS/yolov5_ros.git
 ```
 
-sobit_common(2022/3/1時点ではbranchをfeature/box_to_tfを使用してください。)のインストール
+sobit_common(2023/3/1時点ではbranchをfeature/box_to_tfを使用してください。)のインストール
 ```bash
 cd catkin_ws/src/
 git clone https://github.com/TeamSOBITS/sobit_common.git
