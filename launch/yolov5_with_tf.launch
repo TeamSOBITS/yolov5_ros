@@ -23,6 +23,7 @@
 
         <!-- ROS topics -->
         <arg name="input_image_topic" default="/rgb/image_raw"/>
+        <!-- <arg name="input_image_topic" default="/camera/color/image_raw"/> -->
         <!-- <arg name="input_image_topic" default="/hand_camera/color/image_raw"/> -->
         <arg name="output_topic" default="objects_rect"/>
 
@@ -56,7 +57,7 @@
     </node>
     <!-- <include file="$(find camera_launch)/launch/d435.launch"/> -->
         <!--YOLOv3 3D-->
-        <node name="object_pose_publisher_node" pkg="sobit_common_library" type="object_pose_publisher_v3" output="screen"/>
+        <node name="object_pose_publisher_node" pkg="sobit_common_library" type="object_pose_publisher_v2" output="screen"/>
         <!-- <param name="obj_under_rate" type="double" value="0.6"/> -->
         <!-- <param name="obj_top_rate" type="double" value="0.9"/> -->
         <!-- <param name="map_frame_name" type="string" value="base_footprint"/> -->
@@ -64,7 +65,10 @@
         <!-- <param name="base_frame_name" type="string" value="base_footprint"/> -->
         <param name="base_frame_name" type="string" value="azure_camera_base"/>
         <param name="cloud_topic_name" type="string" value="/points2"/>
+        <!-- <param name="cloud_topic_name" type="string" value="/camera/depth_registered/points"/> -->
         <param name="img_topic_name" type="string" value="/rgb/image_raw"/>
+        <!-- <param name="img_topic_name" type="string" value="/camera/color/image_raw"/> -->
+        <param name="execute_default" type="bool" value="false"/>
         <!-- <param name="cloud_topic_name" type="string" value="/hand_camera/depth/color/points"/>
         <param name="img_topic_name" type="string" value="/hand_camera/color/image_raw"/> -->
         <!-- <param name="max_distance_to_object" type="double" value="2.0"/> -->
