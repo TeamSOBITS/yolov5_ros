@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   sobit_common_msg
+  # detection_msgs
 )
 
 ## System dependencies are found with CMake's conventions
