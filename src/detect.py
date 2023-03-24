@@ -10,9 +10,12 @@ from pathlib import Path
 import os
 import sys
 import sensor_msgs
+from sobit_common_msg.srv import RunCtrl, RunCtrlResponse
+from std_msgs.msg import Bool
 from rostopic import get_topic_type
 
 from sensor_msgs.msg import Image, CompressedImage
+# from detection_msgs.msg import BoundingBox, BoundingBoxes
 from sobit_common_msg.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
 
 # add yolov5 submodule to path
@@ -28,7 +31,7 @@ from utils.general import (
     check_img_size,
     check_requirements,
     non_max_suppression,
-    scale_boxes
+    scale_coords
 )
 from utils.plots import Annotator, colors
 from utils.torch_utils import select_device
@@ -45,6 +48,7 @@ class Yolov5Detector:
         self.classes = rospy.get_param("~classes", None)
         self.line_thickness = rospy.get_param("~line_thickness")
         self.view_image = rospy.get_param("~view_image")
+        self.can_predict = rospy.get_param("~initial_predict", True)
         # Initialize weights 
         weights = rospy.get_param("~weights")
         # Initialize model
@@ -84,6 +88,9 @@ class Yolov5Detector:
         input_image_type, input_image_topic, _ = get_topic_type(rospy.get_param("~input_image_topic"), blocking = True)
         self.compressed_input = input_image_type == "sensor_msgs/CompressedImage"
 
+        self.server = rospy.Service("run_ctrl", RunCtrl, self.run_ctrl_server)
+        self.sub_run_ctrl = rospy.Subscriber("run_ctrl", Bool, self.run_ctrl_callback)
+
         if self.compressed_input:
             self.image_sub = rospy.Subscriber(
                 input_image_topic, CompressedImage, self.callback, queue_size=1
@@ -105,9 +112,25 @@ class Yolov5Detector:
         # Initialize CV_Bridge
         self.bridge = CvBridge()
 
+
+
+    def run_ctrl_server(self, msg):
+        if msg.request:
+            self.can_predict = True
+        else:
+            self.can_predict = False
+        return RunCtrlResponse(True)
+
+    def run_ctrl_callback(self, msg):
+        self.can_predict = msg.data
+        rospy.loginfo("run ctrl -> {}".format(self.can_predict))
+
     def callback(self, data):
         """adapted from yolov5/detect.py"""
         # print(data.header)
+        if not self.can_predict:
+            return
+
         if self.compressed_input:
             im = self.bridge.compressed_imgmsg_to_cv2(data, desired_encoding="bgr8")
         else:
@@ -138,7 +161,7 @@ class Yolov5Detector:
         annotator = Annotator(im0, line_width=self.line_thickness, example=str(self.names))
         if len(det):
             # Rescale boxes from img_size to im0 size
-            det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
+            det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
 
             # Write results
             for *xyxy, conf, cls in reversed(det):

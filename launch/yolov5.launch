@@ -1,6 +1,6 @@
 <launch>
     <!-- Detection configuration -->
-    <arg name="weights" default="/home/sobits/catkin_ws/src/yolov5_ros/src/yolov5/weights/rs_weight/best.pt"/>
+    <arg name="weights" default="/home/sobits/catkin_ws/src/robocup_opl_tidyup/yolov5_ros/src/yolov5/weights/ak/best.pt"/>
     <arg name="data" default="$(find yolov5_ros)/src/yolov5/data/coco128.yaml"/>
     <arg name="confidence_threshold" default="0.75"/>
     <arg name="iou_threshold" default="0.45"/>
@@ -10,20 +10,24 @@
     <arg name="line_thickness" default="3"/>
     <arg name="dnn" default="true"/>
     <arg name="half" default="false"/>
+    <arg name="initial_predict" type="bool" value="false"/>
 
     <!-- replace imgsz -->
     <arg name="inference_size_h" default="1280"/>
     <arg name="inference_size_w" default="720"/>
 
     <!-- Visualize using OpenCV window -->
-    <arg name="view_image" default="false"/>
+    <arg name="view_image" default="true"/>
 
     <!-- ROS topics -->
-    <arg name="input_image_topic" default="/camera/color/image_raw"/>
-    <arg name="output_topic" default="objects_rect"/>
+    <arg name="input_image_topic" default="/usb_cam/image_raw"/>
+    <!-- <arg name="input_image_topic" default="/rgb/image_raw"/> -->
+    <!-- <arg name="input_image_topic" default="/camera/color/image_raw"/> -->
+    <!-- <arg name="input_image_topic" default="/hand_camera/color/image_raw"/> -->
+    <arg name="output_topic" default="/yolov5/detections"/>
 
     <!-- Optional topic (publishing annotated image) -->
-    <arg name="publish_image" default="true"/>
+    <arg name="publish_image" default="false"/>
     <arg name="output_image_topic" default="/yolov5/image_out"/>
 
 
@@ -51,4 +55,6 @@
         <param name="output_image_topic" value="$(arg output_image_topic)"/>
     </node>
     <!-- <include file="$(find camera_launch)/launch/d435.launch"/> -->
+
+
 </launch>
