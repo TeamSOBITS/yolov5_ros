@@ -1,8 +1,8 @@
 <launch>
     <!-- Detection configuration -->
-    <arg name="weights" default="$(find yolov5_ros)/best.pt"/>
+    <arg name="weights" default="/home/sobits/catkin_ws/src/yolov5_ros/src/yolov5/weights/rs_weight/best.pt"/>
     <arg name="data" default="$(find yolov5_ros)/src/yolov5/data/coco128.yaml"/>
-    <arg name="confidence_threshold" default="0.5"/>
+    <arg name="confidence_threshold" default="0.75"/>
     <arg name="iou_threshold" default="0.45"/>
     <arg name="maximum_detections" default="1000"/>
     <arg name="device" default="0"/>
@@ -12,18 +12,18 @@
     <arg name="half" default="false"/>
 
     <!-- replace imgsz -->
-    <arg name="inference_size_h" default="640"/>
-    <arg name="inference_size_w" default="640"/>
+    <arg name="inference_size_h" default="1280"/>
+    <arg name="inference_size_w" default="720"/>
 
     <!-- Visualize using OpenCV window -->
-    <arg name="view_image" default="true"/>
+    <arg name="view_image" default="false"/>
 
     <!-- ROS topics -->
-    <arg name="input_image_topic" default="/clover0/main_camera/image_raw"/>
-    <arg name="output_topic" default="/yolov5/detections"/>
+    <arg name="input_image_topic" default="/camera/color/image_raw"/>
+    <arg name="output_topic" default="objects_rect"/>
 
     <!-- Optional topic (publishing annotated image) -->
-    <arg name="publish_image" default="false"/>
+    <arg name="publish_image" default="true"/>
     <arg name="output_image_topic" default="/yolov5/image_out"/>
 
 
@@ -50,7 +50,5 @@
         <param name="publish_image" value="$(arg publish_image)"/>
         <param name="output_image_topic" value="$(arg output_image_topic)"/>
     </node>
-    <include file="$(find camera_launch)/launch/d435.launch"/>
-
-
+    <!-- <include file="$(find camera_launch)/launch/d435.launch"/> -->
 </launch>

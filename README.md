@@ -1,44 +1,98 @@
 # YOLOv5 ROS
-This is a ROS interface for using YOLOv5 for real time object detection on a ROS image topic. It supports inference on multiple deep learning frameworks used in the [official YOLOv5 repository](https://github.com/ultralytics/yolov5).
+YOLOv5のROSパッケージ
+
+# Requirement
+ 
+* OS: Ubuntu20.04
+* ROS distribution: Noetic
+* python : 3.8.10
+* pytorch : 1.13.1
+* package : sobit_common
 
 ## Installation
-
-### Dependencies
-This package is built and tested on Ubuntu 20.04 LTS and ROS Noetic with Python 3.8.
-
-* Clone the packages to ROS workspace and install requirement for YOLOv5 submodule:
+yolov5_rosのインストール
 ```bash
-cd <ros_workspace>/src
-git clone https://github.com/mats-robotics/detection_msgs.git
-git clone --recurse-submodules https://github.com/mats-robotics/yolov5_ros.git 
+cd catkin_ws/src/
+git clone https://github.com/TeamSOBITS/yolov5_ros.git
+```
+
+sobit_common(2023/3/1時点ではbranchをfeature/box_to_tfを使用してください。)のインストール
+```bash
+cd catkin_ws/src/
+git clone https://github.com/TeamSOBITS/sobit_common.git
+```
+
+/yolov5_ros/src　のディレクトリにyolov5の公式パッケージをインストールしてください。
+```bash
+cd yolov5_ros/src/
+git clone https://github.com/ultralytics/yolov5.git
+```
+
+必要なpython moduleのインストール
+```bash
 cd yolov5_ros/src/yolov5
-pip install -r requirements.txt # install the requirements for yolov5
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+python3 -m pip uninstall utils
 ```
-* Build the ROS package:
+## 使用するmessage(sobit_common内にあります。)
+BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray, Image, CompressedImage,
+
+
+
+
+# Usage
+ 
+YOLOv5 
+ 
 ```bash
-cd <ros_workspace>
-catkin build yolov5_ros # build the ROS package
+# azure_kinect
+roslaunch yolov5_ros azure_yolov5.launch
+# realsense
+roslaunch yolov5_ros realsense2_yolov5.launch
 ```
-* Make the Python script executable 
+ 
+YOLOv5 + PCL
+ 
 ```bash
-cd <ros_workspace>/src/yolov5_ros/src
-chmod +x detect.py
+# azure_kinect
+roslaunch yolov5_ros azure_yolov5_with_tf.launch
+# realsense
+roslaunch yolov5_ros realsense2_yolov5_with_tf.launch
+
 ```
 
-## Basic usage
-Change the parameter for `input_image_topic` in launch/yolov5.launch to any ROS topic with message type of `sensor_msgs/Image` or `sensor_msgs/CompressedImage`. Other parameters can be modified or used as is.
+# Note
 
-* Launch the node:
-```bash
-roslaunch yolov5_ros yolov5.launch
-```
+## Node Parameters
+* **'weights`**
+    weightファイルのファイルパス
 
-## Using custom weights and dataset (Working)
-* Put your weights into `yolov5_ros/src/yolov5`
-* Put the yaml file for your dataset classes into `yolov5_ros/src/yolov5/data`
-* Change related ROS parameters in yolov5.launch: `weights`,  `data`
+* **'confidence_threshold`**
+    認識のスコアのしきい値
 
-## Reference
-* YOLOv5 official repository: https://github.com/ultralytics/yolov5
-* YOLOv3 ROS PyTorch: https://github.com/eriklindernoren/PyTorch-YOLOv3
-* Darknet ROS: https://github.com/leggedrobotics/darknet_ros
+* **'iou_threshold`**
+    iouのしきい値
+
+* **'inference_size_h`**
+    入力画像の幅
+
+* **'inference_size_w`**
+    入力画像の横
+
+* **'input_image_topic`**(/rgb/image_raw)
+    入力画像のtopic
+* **'output_topic`**(objects_rect)
+    yolov5の推論結果
+* **'`**
+## Subscribe Topics
+* **'/camera/rgb/image_raw`** (sensor_msgs/Image)
+
+    YOLOv5の入力画像
+
+* **'/camera/depth/points`** (sensor_msgs/PointCloud2)
+    ポイントクラウドの入力
+
+## Publish Topics
+* **'output_image_topic`**(/yolov5/image_out)
+    yolov5の推論結果を画像
