@@ -31,7 +31,7 @@ from utils.general import (
     check_img_size,
     check_requirements,
     non_max_suppression,
-    scale_coords
+    scale_boxes
 )
 from utils.plots import Annotator, colors
 from utils.torch_utils import select_device
