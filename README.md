@@ -67,7 +67,11 @@ roslaunch yolov5_ros realsense2_yolov5_with_tf.launch
 ## 学習時コマンド
 ```bash 
 python3 train.py --imgsz 640 --batch 8 --epochs 300 --data '/home/sobits/catkin_ws/src/yolov5_ros/src/yolov5/datasets/shelf_ak/train.yaml' --weights yolov5s.pt
+```
 
+##学習経過確認
+```bash
+python3 -m tensorboard.main --logdir=runs/train/
 ```
 
 ## Node Parameters
