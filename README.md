@@ -60,27 +60,27 @@ YOLOv5をROS上で実行するROSパッケージです．
 ### インストール方法
 
 1. yolov5_rosをworkspace上にclone
-   '''
+   ```
    cd catkin_ws/src/
    git clone https://github.com/TeamSOBITS/yolov5_ros.git
-   '''
+   ```
 2. sobit_commonのインストール
-   '''
+   ```
    cd catkin_ws/src/
    git clone https://github.com/TeamSOBITS/sobit_common.git
-   '''
+   ```
 3. yolov5_ros/srcにyolov5の公式パッケージをインストール
-   '''
+   ```
    cd catkin_ws/src/
    git clone https://github.com/ultralytics/yolov5.git
-   '''
+   ```
 4. 必要なpythonモジュールをインストール
-   '''
+   ```
    cd catkin_ws/src/yolov5_ros/src/yolov5
    python3 -m pip install --upgrade pip
    python3 -m pip install -r requirements.txt
    python3 -m pip uninstall utils
-   '''
+   ```
 
 
 
@@ -94,17 +94,17 @@ YOLOv5をROS上で実行するROSパッケージです．
 <!-- デモの実行方法やスクリーンショットがあるとわかりやすくなるでしょう -->
 ### 実行方法
 * YOLOv5
-   '''
+   ```
    roslaunch yolov5_ros yolov5.launch
-   '''
+   ```
    
 * YOLOv5 with TF
-   '''
+   ```
    roslaunch yolov5_ros yolov5_with_tf.launch
-   '''
+   ```
    
 * 実行時の引数
-   '''
+   ```
    weights: weightファイルのパス
    confidence_threshold: 認識のスコアの閾値
    iou_threshold: IoUの閾値
@@ -112,12 +112,12 @@ YOLOv5をROS上で実行するROSパッケージです．
    inference_size_w: 推論する画像の横幅
    input_image_topic: 入力画像のtopic
    output_topic: yolov5による推論結果
-   '''
+   ```
 
    
 ###使用Topic
 * 使用msg一覧
-   '''
+   ```
    Boundingbox (sobit_common)
    BoundingBoxes (sobit_common)
    StringArray 
@@ -125,18 +125,18 @@ YOLOv5をROS上で実行するROSパッケージです．
    ObjectPoseArray 
    Image (sensor_msgs)
    CompressedImage 
-   '''
+   ```
 
 * Subscribe Topics
-   '''
+   ```
    '/camera/rgb/image_raw'(sensor_msgs/Image): YOLOv5への入力画像
    'camera/depth/points'(sensor_msgs/PointCloud2): ポイントクラウドの入力
-   '''
+   ```
    
 * Publish Topics
-   '''
+   ```
    'output_image_topic'(yolov5/image_out): YOLOv5の推論結果の画像
-   '''
+   ```
 
 <p align="right">(<a href="#readme-top">上に戻る</a>)</p>
 
@@ -146,9 +146,9 @@ YOLOv5をROS上で実行するROSパッケージです．
 ## マイルストーン
 
 - [ ] OSS化
-    - [ ]msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) 
+   - [ ]msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) 
 - [ ] README.mdの更新
-    - [ ]launch実行の際の引数や具体的な使用方法について説明が必要です
+   - [ ]launch実行の際の引数や具体的な使用方法について説明が必要です
 
 現時点のバッグや新規機能の依頼を確認するために[Issueページ](https://github.com/TeamSOBITS/yolov5_ros/issues) をご覧ください．
 
