@@ -150,6 +150,7 @@ YOLOv5をROS上で実行するROSパッケージです．
 - [ ] README.mdの更新
     - [ ] launch実行の際の引数や具体的な使用方法について説明が必要です．
     - [ ] READMEの英語版の作成が必要です． 
+    - [ ] Installationについて，sobit_commonの使用するbranchについて確認してください．
 
 現時点のバッグや新規機能の依頼を確認するために[Issueページ](https://github.com/TeamSOBITS/yolov5_ros/issues) をご覧ください．
 
