@@ -195,8 +195,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- 参考文献 -->
 ## 参考文献
 
-* []()
-* []()
+* Jocher, G. (2020). YOLOv5 by Ultralytics (Version 7.0) [Computer software]. https://doi.org/10.5281/zenodo.3908559
+* mats-robotics. yolov5_ros. https://github.com/mats-robotics/yolov5_ros
 * []()
 
 <p align="right">(<a href="#readme-top">上に戻る</a>)</p>
