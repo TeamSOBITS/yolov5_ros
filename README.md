@@ -146,9 +146,9 @@ YOLOv5をROS上で実行するROSパッケージです．
 ## マイルストーン
 
 - [ ] OSS化
-   - [ ]msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) 
+   - [ ] msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) 
 - [ ] README.mdの更新
-   - [ ]launch実行の際の引数や具体的な使用方法について説明が必要です
+    - [ ] launch実行の際の引数や具体的な使用方法について説明が必要です
 
 現時点のバッグや新規機能の依頼を確認するために[Issueページ](https://github.com/TeamSOBITS/yolov5_ros/issues) をご覧ください．
 
