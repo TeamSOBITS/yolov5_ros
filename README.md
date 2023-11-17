@@ -1,11 +1,11 @@
 <a name="readme-top"></a>
 
-[JP](README.md) | [EN](template_readme_en.md)
+[JP](template_readme.md) | [EN](template_readme_en.md)
 
-[![Contributors][contributors-shield]][chttps://github.com/TeamSOBITS/yolov5_ros/graphs/contributors]
-[![Forks][forks-shield]][https://github.com/TeamSOBITS/yolov5_ros/forks]
-[![Stargazers][stars-shield]][https://github.com/TeamSOBITS/yolov5_ros/stargazers]
-[![Issues][issues-shield]][https://github.com/TeamSOBITS/yolov5_ros/issues]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 <!-- [![MIT License][license-shield]][license-url] -->
 
 # レポジトリ名
