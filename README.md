@@ -2,7 +2,7 @@
 
 [JP](README.md) | [EN](template_readme_en.md)
 
-[![Contributors][contributors-shield]](https://github.com/TeamSOBITS/yolov5_ros/graphs/contributors)
+[![Contributors][contributors-shield]]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
