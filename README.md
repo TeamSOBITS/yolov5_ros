@@ -2,13 +2,13 @@
 
 [JP](README.md) | [EN](template_readme_en.md)
 
-[![Contributors][contributors-shield]](https://github.com/TeamSOBITS/yolov5_ros/graphs/contributors)
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-<!-- [![MIT License][license-shield]][license-url] -->
+<!-- [![License][license-shield]][license-url] -->
 
-# レポジトリ名
+# yolov5_ros
 
 <!-- 目次 -->
 <details>
@@ -25,6 +25,10 @@
       </ul>
     </li>
     <li><a href="#実行・操作方法">実行・操作方法</a></li>
+    <ul>
+      <li><a href="#実行方法">実行方法</a></li>
+      <li><a href="#使用topic">使用Topic</a></li>
+    </ul>
     <li><a href="#マイルストーン">マイルストーン</a></li>
     <li><a href="#変更履歴">変更履歴</a></li>
     <!-- <li><a href="#contributing">Contributing</a></li> -->
@@ -39,16 +43,19 @@
 ## 概要
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+<!-- <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/im/banner-yolo-vision-2023.png"></a> -->
+<img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/yolov5/v70/splash.png"></a>
 
-ここで本レポジトリの目的や解決する課題を中心にアピールしてください．
-YOLOv5をROS上で実行するROSパッケージです．
+YOLOv5🚀は，ultralyticsによって公表されている物体検出パッケージです．
+yolov5_rosは，YOLOv5をROS上で実行するROSパッケージです．
+YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov5">YOLOv5 Docs</a>で確認することができます．
 
 <p align="right">(<a href="#readme-top">上に戻る</a>)</p>
 
 
 
 <!-- セットアップ -->
-## セットアップ
+## 環境構築
 
 ### 環境条件
 
@@ -93,12 +100,12 @@ YOLOv5をROS上で実行するROSパッケージです．
 
 <!-- デモの実行方法やスクリーンショットがあるとわかりやすくなるでしょう -->
 ### 実行方法
-* YOLOv5
+* YOLOv5: yolov5.launchを実行します．
    ```
    roslaunch yolov5_ros yolov5.launch
    ```
    
-* YOLOv5 with TF
+* YOLOv5 with TF: yolov5_with_tf.launchを実行します．
    ```
    roslaunch yolov5_ros yolov5_with_tf.launch
    ```
@@ -206,13 +213,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-<!-- [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt -->
+[contributors-shield]: https://img.shields.io/github/contributors/TeamSOBITS/yolov5_ros.svg?style=for-the-badge
+[contributors-url]: https://github.com/TeamSOBITS/yolov5_ros/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/TeamSOBITS/yolov5_ros.svg?style=for-the-badge
+[forks-url]: https://github.com/TeamSOBITS/yolov5_ros/network/members
+[stars-shield]: https://img.shields.io/github/stars/TeamSOBITS/yolov5_ros.svg?style=for-the-badge
+[stars-url]: https://github.com/TeamSOBITS/yolov5_ros/stargazers
+[issues-shield]: https://img.shields.io/github/issues/TeamSOBITS/yolov5_ros.svg?style=for-the-badge
+[issues-url]: https://github.com/TeamSOBITS/yolov5_ros/issues
+<!-- [license-shield]: https://img.shields.io/github/license/TeamSOBITS/yolov5_ros.svg?style=for-the-badge
+[license-url]: https://github.com/TeamSOBITS/yolov5_ros/blob/master/LICENSE.txt -->
