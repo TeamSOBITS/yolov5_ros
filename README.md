@@ -125,13 +125,13 @@ YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov
 ### 使用Topic
 * 使用msg一覧
    ```
-   Boundingbox (sobit_common)
-   BoundingBoxes (sobit_common)
-   StringArray 
-   ObjectPose 
-   ObjectPoseArray 
+   Boundingbox (sobits_msgs)
+   BoundingBoxes (sobits_msgs)
+   StringArray (sobits_msgs)
+   ObjectPose (sobits_msgs)
+   ObjectPoseArray (sobits_msgs)
    Image (sensor_msgs)
-   CompressedImage 
+   CompressedImage (sensor_msgs)
    ```
 
 * Subscribe Topics
@@ -153,7 +153,7 @@ YOLOv5🚀の使用方法の詳細は<a href="https://docs.ultralytics.com/yolov
 ## マイルストーン
 
 - [ ] OSS化
-   - [ ] msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) ．
+   - [x] msgの更新(vision_msgsか，jsk_recognition_msgsを推奨します) ．
 - [ ] README.mdの更新
     - [ ] launch実行の際の引数や具体的な使用方法について説明が必要です．
     - [ ] READMEの英語版の作成が必要です． 
