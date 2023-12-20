@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
-  sobit_common_msg
+  # sobit_common_msg
   # detection_msgs
 )
 

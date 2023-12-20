@@ -10,13 +10,15 @@ from pathlib import Path
 import os
 import sys
 import sensor_msgs
-from sobit_common_msg.srv import RunCtrl, RunCtrlResponse
+# from sobit_common_msg.srv import RunCtrl, RunCtrlResponse
 from std_msgs.msg import Bool
 from rostopic import get_topic_type
 
 from sensor_msgs.msg import Image, CompressedImage
 # from detection_msgs.msg import BoundingBox, BoundingBoxes
-from sobit_common_msg.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
+# from sobit_common_msg.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
+from sobits_msgs.msg import BoundingBox, BoundingBoxes, StringArray, ObjectPose, ObjectPoseArray
+from sobits_msgs.srv import RunCtrl, RunCtrlResponse
 
 # add yolov5 submodule to path
 FILE = Path(__file__).resolve()
@@ -26,7 +28,7 @@ if str(ROOT) not in sys.path:
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative path
 
 # import from yolov5 submodules
-from models.common import DetectMultiBackend
+from ultralytics.common import DetectMultiBackend
 from utils.general import (
     check_img_size,
     check_requirements,
