@@ -28,7 +28,8 @@ if str(ROOT) not in sys.path:
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative path
 
 # import from yolov5 submodules
-from ultralytics.common import DetectMultiBackend
+# from ultralytics.common import DetectMultiBackend
+from models.common import DetectMultiBackend
 from utils.general import (
     check_img_size,
     check_requirements,
